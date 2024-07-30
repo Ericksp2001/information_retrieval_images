@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 from tensorflow.keras.preprocessing import image
 from sklearn.neighbors import NearestNeighbors
@@ -9,6 +10,7 @@ import os
 
 
 app = Flask(__name__)
+CORS(app)
 
 # Load the VGG16 model
 base_model = VGG16(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
@@ -62,6 +64,10 @@ def search_similar_images():
         results = [{'index': int(idx), 'label': int(label), 'distance': float(dist)} for idx, label, dist in zip(indices[0], nearest_labels, distances[0])]
         
         return jsonify({'results': results})
+
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory('C:/Users/erick/Escritorio/information_retrieval_images/recursos/caltech101/101_ObjectCategories/', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
