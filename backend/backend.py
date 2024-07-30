@@ -15,11 +15,11 @@ base_model = VGG16(weights='imagenet', include_top=False, input_shape=(224, 224,
 model = tf.keras.Model(inputs=base_model.input, outputs=base_model.layers[-1].output)
 
 # Load the NearestNeighbors model
-nn_model = load(r'C:\Users\erick\Escritorio\RI\24a\week14\nearest_neighbors_model.joblib')
+nn_model = load(r'C:\Users\erick\Escritorio\information_retrieval_images\nearest_neighbors_model.joblib')
 
 # Load the training features and labels
-train_features_flat = np.load(r'C:\Users\erick\Escritorio\RI\24a\week14\train_features.npy')
-train_labels_flat = np.load(r'C:\Users\erick\Escritorio\RI\24a\week14\train_labels.npy')
+train_features_flat = np.load(r'C:\Users\erick\Escritorio\information_retrieval_images\recursos\train_features.npy')
+train_labels_flat = np.load(r'C:\Users\erick\Escritorio\information_retrieval_images\recursos\train_labels.npy')
 
 def preprocess_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))
