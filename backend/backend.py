@@ -8,6 +8,7 @@ from joblib import load
 import tensorflow as tf
 import os
 
+# Directorio actual ""
 
 app = Flask(__name__)
 CORS(app)
@@ -16,12 +17,20 @@ CORS(app)
 base_model = VGG16(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 model = tf.keras.Model(inputs=base_model.input, outputs=base_model.layers[-1].output)
 
+# Paths
+train_features_path = os.path.join(os.path.dirname(__file__), '../recursos/train_features.npy')
+train_labels_path = os.path.join(os.path.dirname(__file__), '../recursos/train_labels.npy')
+nn_model_path = os.path.join(os.path.dirname(__file__), '../recursos/nearest_neighbors_model.joblib')
+
+photos_path = os.path.join(os.path.dirname(__file__), '../data/downloads/extracted/TAR_GZ.101_ObjectCategories.tar.gz/101_ObjectCategories/')
+
 # Load the NearestNeighbors model
-nn_model = load(r'C:\Users\erick\Escritorio\information_retrieval_images\nearest_neighbors_model.joblib')
+nn_model = load(nn_model_path)
+
 
 # Load the training features and labels
-train_features_flat = np.load(r'C:\Users\erick\Escritorio\information_retrieval_images\recursos\train_features.npy')
-train_labels_flat = np.load(r'C:\Users\erick\Escritorio\information_retrieval_images\recursos\train_labels.npy')
+train_features_flat = np.load(train_features_path)
+train_labels_flat = np.load(train_labels_path)
 
 def preprocess_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))
@@ -67,7 +76,7 @@ def search_similar_images():
 
 @app.route('/images/<path:filename>')
 def serve_image(filename):
-    return send_from_directory('C:/Users/erick/Escritorio/information_retrieval_images/recursos/caltech101/101_ObjectCategories/', filename)
+    return send_from_directory(photos_path, filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
