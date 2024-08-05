@@ -66,26 +66,28 @@ const ImagenSearch: React.FC = () => {
 
     return (
         <div className="imagen-search-container">
-            <img src={logo} alt="Logo" className="logo"/>
-            <div className="search-box">
-                <div className="file-input-wrapper">
-                    <label htmlFor="file-upload" className="file-label">Elegir archivo</label>
-                    <input
-                        id="file-upload"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        className="file-input"
-                    />
-                    <span className="file-name">{fileName || "No se ha seleccionado ningún archivo"}</span>
+            <div className="top-content">
+                <img src={logo} alt="Logo" className="logo"/>
+                <div className="search-box">
+                    <div className="file-input-wrapper">
+                        <label htmlFor="file-upload" className="file-label">Elegir archivo</label>
+                        <input
+                            id="file-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="file-input"
+                        />
+                        <span className="file-name">{fileName || "No se ha seleccionado ningún archivo"}</span>
+                    </div>
+                    <button onClick={handleSearch} className="search-button" disabled={isLoading}>
+                        <svg className="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        {isLoading ? 'Buscando...' : 'Buscar'}
+                    </button>
                 </div>
-                <button onClick={handleSearch} className="search-button" disabled={isLoading}>
-                    <svg className="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    {isLoading ? 'Buscando...' : 'Buscar'}
-                </button>
             </div>
             {imagePreview && (
                 <div className="image-preview-container">

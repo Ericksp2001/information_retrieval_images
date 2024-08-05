@@ -15,7 +15,7 @@ def extract_features(model, image_path):
     features = model.predict(img_array)
     return features.flatten()
 
-def search_similar(image_path, index, category=None, top_k=3):
+def search_similar(image_path, index, category=None, top_k=30):
     if image_path:
         query_features = extract_features(base_model, image_path)
         similarities = {
