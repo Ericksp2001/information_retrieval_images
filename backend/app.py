@@ -5,12 +5,11 @@ import tempfile
 from image_search import search_similar
 from flask_cors import CORS
 
-
 app = Flask(__name__)
 CORS(app)
 
 # Configura el directorio donde se guardan las imágenes
-app.config['IMAGE_FOLDER'] = '/data/101_ObjectCategories'
+app.config['IMAGE_FOLDER'] = os.path.join(os.path.dirname(__file__), './data/101_ObjectCategories')  
 
 # Cargar el índice desde el archivo
 index_path = os.path.join(os.path.dirname(__file__), './recursos/index.pkl')
@@ -21,7 +20,7 @@ if os.path.exists(index_path):
     print(f'Índice cargado desde {index_path}.')
     print(f'Número de imágenes indexadas: {len(index)}')
 else:
-    print(f'No se encontró el archivo {index_path}. Asegúrate de que esté en el mismo directorio que app.py.')
+    print(f'No se encontró el archivo {index_path}.')
 
 # Ruta para servir imágenes desde el directorio 'static/caltech-101'
 @app.route('/data/101_ObjectCategories/<category>/<filename>')
