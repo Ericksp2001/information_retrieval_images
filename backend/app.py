@@ -12,7 +12,7 @@ CORS(app)
 app.config['IMAGE_FOLDER'] = os.path.join(os.path.dirname(__file__), './data/101_ObjectCategories')  
 
 # Cargar el índice desde el archivo
-index_path = os.path.join(os.path.dirname(__file__), './recursos/index.pkl')
+index_path = os.path.join(os.path.dirname(__file__), './recursos/Index_Generation/index.pkl')
 index = None
 if os.path.exists(index_path):
     with open(index_path, 'rb') as f:

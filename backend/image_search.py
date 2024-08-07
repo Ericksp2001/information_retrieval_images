@@ -1,11 +1,12 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.applications import ResNet50
-from tensorflow.keras.preprocessing.image import img_to_array, load_img
+from tensorflow.keras.applications import ResNet50 # type: ignore
+from tensorflow.keras.preprocessing.image import img_to_array, load_img # type: ignore
 from sklearn.metrics.pairwise import cosine_similarity
+from tensorflow.keras.models import load_model # type: ignore
 
 # Configuración del modelo
-base_model = ResNet50(weights='imagenet', include_top=False, pooling='avg')
+base_model = load_model(r'C:\Users\erick\Escritorio\information_retrieval_images\backend\recursos\modelo_metrics\modelo_multinucleo.h5')
 
 def extract_features(model, image_path):
     img = load_img(image_path, target_size=(224, 224))
